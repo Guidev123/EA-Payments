@@ -15,10 +15,14 @@ public abstract class Entity
     public Guid Id { get; }
     public DateTime CreatedAt { get; }
     public DateTime UpdatedAt { get; protected set; }
+    public DateTime? DeletedAt { get; private set; }
     public bool IsDeleted { get; protected set; }
 
-    protected void SetAsDeleted() => IsDeleted = true;  
-
+    public void SetAsDeleted()
+    {
+        DeletedAt = DateTime.Now;
+        IsDeleted = true;
+    }
     private List<IDomainEvent> _events = [];
 
     public IReadOnlyCollection<IDomainEvent> Events => _events.AsReadOnly();
