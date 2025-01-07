@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Payments.Domain.Entities;
-using Payments.Infrastructure.Persistence.Configurations.Interceptors;
 
 namespace Payments.Infrastructure.Persistence;
 
@@ -13,6 +12,6 @@ public sealed class PaymentDbContext(DbContextOptions<PaymentDbContext> options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(PaymentDbContext).Assembly);
     }
 }

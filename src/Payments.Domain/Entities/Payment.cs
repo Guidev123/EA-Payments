@@ -11,8 +11,8 @@ public class Payment : Entity, IAggregateRoot
                    EPaymentGateway paymentGateway, Transaction transaction)
     {
         CustomerId = customerId;
-        CustomerDocument = new Document(document);
-        CustomerEmail = new Email(email);
+        Document = new Document(document);
+        Email = new Email(email);
         OrderCode = orderCode;
         Total = total;
         Type = paymentType;
@@ -21,12 +21,13 @@ public class Payment : Entity, IAggregateRoot
         Transaction = transaction;
     }
     public Guid CustomerId { get; private set; }
-    public Document CustomerDocument { get; private set; }
-    public Email CustomerEmail { get; private set; }
-    public string OrderCode { get; private set; }
+    public Document Document { get; private set; } = null!;
+    public Email Email { get; private set; } = null!;
+    public string OrderCode { get; private set; } = string.Empty;
     public decimal Total { get; private set; }
     public EPaymentType Type { get; private set; }
     public EPaymentGateway Gateway { get; private set; }
     public EPaymentStatus Status { get; private set; }
     public Transaction Transaction { get; private set; } = null!;
+    protected Payment() { }
 }

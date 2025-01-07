@@ -14,6 +14,8 @@ public class Transaction : Entity
 
     public Guid PaymentId { get; private set; }
     public decimal Amount { get; private set; }
-    public string ExternalReference { get; private set; }
-    public ShoppingCart ShoppingCart { get; private set; } 
+    public string ExternalReference { get; private set; } = string.Empty;
+    public ShoppingCart ShoppingCart { get; private set; } = null!;
+    public Payment Payment { get; private set; } = null!;
+    protected Transaction() { }
 }
