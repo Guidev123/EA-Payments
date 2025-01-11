@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments.Domain", "src\Paym
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments.Infrastructure", "src\Payments.Infrastructure\Payments.Infrastructure.csproj", "{58F8E11F-0030-4E21-818C-E179063BFF2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments.Application", "src\Payments.Application\Payments.Application.csproj", "{5E7E0439-8336-4C26-AEC3-56A881F50F0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payments.Application", "src\Payments.Application\Payments.Application.csproj", "{1C1CF59C-AE37-402B-87F9-52C00C50385D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{58F8E11F-0030-4E21-818C-E179063BFF2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58F8E11F-0030-4E21-818C-E179063BFF2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58F8E11F-0030-4E21-818C-E179063BFF2E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E7E0439-8336-4C26-AEC3-56A881F50F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E7E0439-8336-4C26-AEC3-56A881F50F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E7E0439-8336-4C26-AEC3-56A881F50F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E7E0439-8336-4C26-AEC3-56A881F50F0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C1CF59C-AE37-402B-87F9-52C00C50385D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C1CF59C-AE37-402B-87F9-52C00C50385D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C1CF59C-AE37-402B-87F9-52C00C50385D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C1CF59C-AE37-402B-87F9-52C00C50385D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
