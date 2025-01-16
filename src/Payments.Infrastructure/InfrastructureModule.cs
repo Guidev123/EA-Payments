@@ -2,10 +2,12 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Payments.Application.Services;
 using Payments.Domain.Repositories;
 using Payments.Infrastructure.Persistence;
 using Payments.Infrastructure.Persistence.Configurations.Interceptors;
 using Payments.Infrastructure.Persistence.Repositories;
+using Payments.Infrastructure.Services;
 
 namespace Payments.Infrastructure;
 
@@ -15,6 +17,7 @@ public static class InfrastructureModule
     {
         services.AddDatabase(configuration);
         services.AddRepositories();
+        services.AddServices();
     }
 
     public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
@@ -34,5 +37,11 @@ public static class InfrastructureModule
     {
         services.AddScoped<IPaymentRepository, PaymentRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-    }   
+    }
+
+    public static void AddServices(this IServiceCollection services)
+    {
+        services.AddScoped<IUserService, UserService>();
+        services.AddTransient<IStripeService, StripeService>();
+    }
 }

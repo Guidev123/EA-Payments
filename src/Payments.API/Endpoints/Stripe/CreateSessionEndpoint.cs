@@ -1,4 +1,8 @@
-﻿using Payments.Application.Responses;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Payments.Application.Commands.Stripe.CreateSession;
+using Payments.Application.Responses;
+using Payments.Application.Services;
 
 namespace Payments.API.Endpoints.Stripe;
 
@@ -8,8 +12,11 @@ public sealed class CreateSessionEndpoint : IEndpoint
                 => app.MapPost("/session", HandleAsync)
                     .Produces<Response<string?>>();
 
-    private static async Task<IResult> HandleAsync()
+    private static async Task<IResult> HandleAsync([FromServices] IMediator mediator, CreateSessionCommand command)
     {
-        return TypedResults.Ok("Hello World");
+        var result = await mediator.Send(command);
+        return result.IsSuccess && result.Data is not null
+            ? Results.Created($"/{result.Data.seesion}", result.Data)
+            : Results.BadRequest(result.Data);
     }
 }

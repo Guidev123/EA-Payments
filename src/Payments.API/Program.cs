@@ -1,17 +1,17 @@
 using Payments.API.Configurations;
+using Payments.API.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
-
+builder.Services.AddJwtConfiguration(builder.Configuration);
 builder.AddModules();
 
-var app = builder.Build();
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSwaggerConfig();
 
-app.UseHttpsRedirection();
+var app = builder.Build();
+app.UseSecurity();
+app.MapEndpoints();
 
 app.Run();

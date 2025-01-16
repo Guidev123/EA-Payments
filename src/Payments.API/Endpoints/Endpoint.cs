@@ -8,9 +8,8 @@ public static class Endpoint
     {
         var endpoints = app.MapGroup("");
 
-        endpoints.WithTags("api/v1/payments")
+        endpoints.MapGroup("api/v1/payments")
             .WithTags("Payments")
-            .RequireAuthorization()
             .MapEndpoint<CreateSessionEndpoint>();
     }
 

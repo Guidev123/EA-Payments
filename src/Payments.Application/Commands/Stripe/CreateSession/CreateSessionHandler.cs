@@ -6,7 +6,7 @@ namespace Payments.Application.Commands.Stripe.CreateSession;
 
 public sealed class CreateSessionHandler(IStripeService stripeService,
                                          IUserService userService)
-                  : IRequestHandler<CreateSessionCommand, Response<CreateSessionResponse>>
+                                       : IRequestHandler<CreateSessionCommand, Response<CreateSessionResponse>>
 {
     private readonly IStripeService _stripeService = stripeService;
     private readonly IUserService _userService = userService;
