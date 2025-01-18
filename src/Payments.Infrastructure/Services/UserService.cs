@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Payments.Application.Services;
-using System.Net.Http;
-using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Payments.Infrastructure.Services;
 
 public sealed class UserService(IHttpContextAccessor httpContextAccessor) : IUserService
 {
-    private readonly ClaimsPrincipal _claims = httpContextAccessor.HttpContext!.User;
     private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
     public HttpContext GetHttpContext() => _httpContextAccessor.HttpContext;
@@ -21,13 +19,16 @@ public sealed class UserService(IHttpContextAccessor httpContextAccessor) : IUse
         return string.Empty;
     }
 
-    public Task<Guid?> GetUserIdAsync()
+    public Guid? GetUserIdAsync()
     {
-        var userIdClaim = _claims?.FindFirst("sub")?.Value ?? _claims?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var token = GetToken();
+        if (string.IsNullOrEmpty(token)) return null;
 
-        if (Guid.TryParse(userIdClaim, out var userId))
-            return Task.FromResult<Guid?>(userId);
+        var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
-        return Task.FromResult<Guid?>(null);
+        var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+        if (Guid.TryParse(userIdClaim, out var userId)) return userId;
+
+        return null;
     }
 }

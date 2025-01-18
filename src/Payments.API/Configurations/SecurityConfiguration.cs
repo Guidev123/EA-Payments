@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Payments.API.Endpoints;
 using SharedLib.Tokens.AspNet;
 using SharedLib.Tokens.Extensions;
 
@@ -20,22 +21,35 @@ public static class SecurityConfiguration
             x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
         {
-            options.RequireHttpsMetadata = true;
-            options.SaveToken = true;
             options.SetJwksOptions(new JwkOptions(appSettings.JwksEndpoint));
+        });
+
+        services.AddAuthorization();
+        services.AddCors(options =>
+        {
+            options.AddPolicy("Total", policy =>
+            {
+                policy.AllowAnyOrigin()
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
+            });
         });
     }
 
-    public static void UseSecurity(this IApplicationBuilder app)
+    public static void UseSecurity(this WebApplication app)
     {
         app.UseSwaggerConfig();
 
         app.UseHttpsRedirection();
 
         app.UseRouting();
-        
+
+        app.UseCors("Total");
+
         app.UseAuthentication();
         app.UseAuthorization();
+
+        app.MapEndpoints();
 
         app.UseJwksDiscovery();
     }

@@ -12,7 +12,7 @@ public sealed class CreateSessionHandler(IStripeService stripeService,
     private readonly IUserService _userService = userService;
     public async Task<Response<CreateSessionResponse>> Handle(CreateSessionCommand request, CancellationToken cancellationToken)
     {
-        var customerId = await _userService.GetUserIdAsync();
+        var customerId = _userService.GetUserIdAsync();
         if (customerId is null) return new(null, 404);
 
         request.SetCustomerId(customerId.Value);
