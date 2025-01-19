@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using NetDevPack.Security.JwtExtensions;
 using Payments.API.Endpoints;
-using SharedLib.Tokens.AspNet;
-using SharedLib.Tokens.Extensions;
 
 namespace Payments.API.Configurations;
 
@@ -26,7 +25,6 @@ public static class SecurityConfiguration
             options.SetJwksOptions(new JwkOptions(appSettings.JwksEndpoint));
         });
         services.AddAuthorization();
-        services.AddCors();
     }
 
     public static void UseSecurity(this WebApplication app)
@@ -37,14 +35,10 @@ public static class SecurityConfiguration
 
         app.UseRouting();
 
-        app.UseCors("Total");
-
         app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapEndpoints();
-
-        app.UseJwksDiscovery();
     }
 
     public class JwksSettings
