@@ -8,32 +8,25 @@ namespace Payments.API.Configurations;
 public static class SecurityConfiguration
 {
     public static void AddJwtConfiguration(this IServiceCollection services,
-        IConfiguration configuration)
+            IConfiguration configuration)
 
     {
         var appSettingsSection = configuration.GetSection(nameof(JwksSettings));
         services.Configure<JwksSettings>(appSettingsSection);
 
-        var appSettings = appSettingsSection.Get<JwksSettings>() ?? new(string.Empty);
+        var appSettings = appSettingsSection.Get<JwksSettings>() ?? new();
         services.AddAuthentication(x =>
         {
             x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
         {
+            options.RequireHttpsMetadata = true;
+            options.SaveToken = true;
             options.SetJwksOptions(new JwkOptions(appSettings.JwksEndpoint));
         });
-
         services.AddAuthorization();
-        services.AddCors(options =>
-        {
-            options.AddPolicy("Total", policy =>
-            {
-                policy.AllowAnyOrigin()
-                      .AllowAnyHeader()
-                      .AllowAnyMethod();
-            });
-        });
+        services.AddCors();
     }
 
     public static void UseSecurity(this WebApplication app)
@@ -54,8 +47,8 @@ public static class SecurityConfiguration
         app.UseJwksDiscovery();
     }
 
-    public class JwksSettings(string JwksEndpoint)
+    public class JwksSettings
     {
-        public string JwksEndpoint { get; set; } = JwksEndpoint;
+        public string JwksEndpoint { get; set; } = string.Empty;
     }
 }

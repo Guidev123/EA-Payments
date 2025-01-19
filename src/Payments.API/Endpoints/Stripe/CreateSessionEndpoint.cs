@@ -12,7 +12,7 @@ public sealed class CreateSessionEndpoint : IEndpoint
                 => app.MapPost("/session", HandleAsync)
                     .Produces<Response<string?>>();
 
-    private static async Task<IResult> HandleAsync([FromServices] IMediator mediator, CreateSessionCommand command)
+    private static async Task<IResult> HandleAsync([FromServices] IMediator mediator, [FromBody] CreateSessionCommand command)
     {
         var result = await mediator.Send(command);
         return result.IsSuccess && result.Data is not null

@@ -10,6 +10,7 @@ public static class Endpoint
 
         endpoints.MapGroup("api/v1/payments")
             .WithTags("Payments")
+            .RequireAuthorization()
             .MapEndpoint<CreateSessionEndpoint>();
     }
 
