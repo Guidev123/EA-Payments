@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Payments.Application.Commands.Stripe.CreateSession;
 using Payments.Application.Responses;
-using Payments.Application.Services;
 
 namespace Payments.API.Endpoints.Stripe;
 
@@ -17,6 +16,6 @@ public sealed class CreateSessionEndpoint : IEndpoint
         var result = await mediator.Send(command);
         return result.IsSuccess && result.Data is not null
             ? Results.Created($"/{result.Data.seesion}", result.Data)
-            : Results.BadRequest(result.Data);
+            : Results.BadRequest(result);
     }
 }
