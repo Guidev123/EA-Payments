@@ -11,7 +11,8 @@ public static class Endpoint
         endpoints.MapGroup("api/v1/stripe")
             .WithTags("Stripe")
             .RequireAuthorization()
-            .MapEndpoint<CreateSessionEndpoint>();
+            .MapEndpoint<CreateSessionEndpoint>()
+            .MapEndpoint<GetTransactionsByOrderCodeEndpoint>();
     }
 
     private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app)

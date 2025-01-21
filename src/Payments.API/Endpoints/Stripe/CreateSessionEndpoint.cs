@@ -7,7 +7,7 @@ namespace Payments.API.Endpoints.Stripe;
 public sealed class CreateSessionEndpoint : IEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
-                => app.MapPost("/session", HandleAsync)
+                => app.MapPost("/", HandleAsync)
                     .Produces<Response<string?>>();
 
     private static async Task<IResult> HandleAsync(IMediator mediator,

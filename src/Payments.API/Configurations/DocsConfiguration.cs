@@ -10,15 +10,15 @@ public static class DocsConfiguration
         {
             c.SwaggerDoc("v1", new OpenApiInfo()
             {
-                Title = "API Identidade",
-                Description = "Esta é uma de autenticação de usuarios",
+                Title = "API Payments",
+                Description = "This is a payments API",
                 Contact = new OpenApiContact() { Name = "Guilherme Nascimento", Email = "guirafaelrn@gmail.com" },
                 License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/license/MIT") }
             });
 
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
-                Description = "Insira o token JWT desta forma: Bearer {seu token}",
+                Description = "Enter the JWT token in this format: Bearer {your token}",
                 Name = "Authorization",
                 Scheme = "Bearer",
                 BearerFormat = "JWT",
@@ -27,7 +27,7 @@ public static class DocsConfiguration
             });
 
             c.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
+        {
                 {
                     new OpenApiSecurityScheme
                     {
@@ -42,6 +42,7 @@ public static class DocsConfiguration
             });
         });
     }
+
 
     public static void UseSwaggerConfig(this IApplicationBuilder app)
     {

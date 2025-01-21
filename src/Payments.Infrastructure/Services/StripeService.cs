@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Payments.Application.Commands.Stripe.CreateSession;
+using Payments.Application.DTOs;
 using Payments.Application.Services;
 using Payments.Infrastructure.Models;
 using Stripe;
@@ -39,7 +40,7 @@ public sealed class StripeService(IOptions<StripeSettings> stripeSettings) : ISt
                                     Name = command.ShoppingCart.Name,
                                     Description = command.ShoppingCart.Description
                                 },
-                                UnitAmount = (int)command.Total,
+                                UnitAmount = (int)Math.Round(command.Total * 100, 2),
                             },
                             Quantity = 1
                         }
@@ -53,5 +54,27 @@ public sealed class StripeService(IOptions<StripeSettings> stripeSettings) : ISt
         var session = await service.CreateAsync(options);
 
         return session.Id;
+    }
+
+    public async Task<List<StripeTransactionDTO>> GetTransactionsByOrderCodeAsync(string number)
+    {
+        var client = new StripeClient(_stripeSettings.ApiKey);
+
+        var options = new ChargeSearchOptions
+        {
+            Query = $"metadata['order']:'{number}'",
+        };
+
+        var service = new ChargeService(client);
+        var result = await service.SearchAsync(options);
+
+        if (result.Data.Count == 0) return [];
+
+        var data = new List<StripeTransactionDTO>();
+        foreach (var item in result.Data)
+            data.Add(new StripeTransactionDTO(item.Id, item.BillingDetails.Email, item.Amount,
+                                               item.AmountCaptured, item.Status, item.Paid, item.Refunded));
+
+        return data;
     }
 }
