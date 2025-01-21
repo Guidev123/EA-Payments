@@ -36,8 +36,8 @@ public sealed class StripeService(IOptions<StripeSettings> stripeSettings) : ISt
                                 Currency = "BRL",
                                 ProductData = new SessionLineItemPriceDataProductDataOptions
                                 {
-                                    Name = command.Transaction.ShoppingCart.Name,
-                                    Description = command.Transaction.ShoppingCart.Description
+                                    Name = command.ShoppingCart.Name,
+                                    Description = command.ShoppingCart.Description
                                 },
                                 UnitAmount = (int)command.Total,
                             },
@@ -51,7 +51,7 @@ public sealed class StripeService(IOptions<StripeSettings> stripeSettings) : ISt
 
         var service = new SessionService(client);
         var session = await service.CreateAsync(options);
-        session.Url = session.Url;
+
         return session.Id;
     }
 }
