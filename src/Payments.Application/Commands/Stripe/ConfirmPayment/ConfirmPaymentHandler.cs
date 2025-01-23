@@ -27,17 +27,16 @@ public sealed class ConfirmPaymentHandler(IHttpContextAccessor httpContextAccess
             var stripeEvent = EventUtility.ConstructEvent(
                 json,
                 context.Request.Headers["Stripe-Signature"],
-                request.WebhoockKey
+                request.WebhoockKey,
+                throwOnApiVersionMismatch: false
             );
 
-            if (stripeEvent.Type == ApplicationModule.EVENT_TYPE_STRIPE)
-            {
+            var paymentStatus = stripeEvent.Type;
+
+            if (paymentStatus.Equals("charge.succeeded", StringComparison.OrdinalIgnoreCase))
                 await _mediator.Publish(new PaymentConfirmedEvent(EPaymentStatus.Paid), cancellationToken);
-            }
-            else
-            {
-                return new(null, 400);
-            }
+
+            else return new(null, 400);
 
             return new(null, 204);
         }
