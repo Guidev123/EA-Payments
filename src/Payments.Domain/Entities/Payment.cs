@@ -6,12 +6,11 @@ namespace Payments.Domain.Entities;
 
 public class Payment : Entity, IAggregateRoot
 {
-    public Payment(Guid customerId, string document, string email,
+    public Payment(Guid customerId, string email,
                    string orderCode, decimal total, EPaymentType paymentType,
                    EPaymentGateway paymentGateway, Transaction transaction)
     {
         CustomerId = customerId;
-        Document = new Document(document);
         Email = new Email(email);
         OrderCode = orderCode;
         Total = total;
@@ -21,7 +20,6 @@ public class Payment : Entity, IAggregateRoot
         Transaction = transaction;
     }
     public Guid CustomerId { get; private set; }
-    public Document Document { get; private set; } = null!;
     public Email Email { get; private set; } = null!;
     public string OrderCode { get; private set; } = string.Empty;
     public decimal Total { get; private set; }

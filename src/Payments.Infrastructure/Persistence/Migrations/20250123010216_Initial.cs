@@ -17,7 +17,6 @@ namespace Payments.Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Document = table.Column<string>(type: "VARCHAR(11)", nullable: false),
                     Email = table.Column<string>(type: "VARCHAR(160)", nullable: false),
                     OrderCode = table.Column<string>(type: "VARCHAR(60)", maxLength: 60, nullable: false),
                     Total = table.Column<decimal>(type: "MONEY", nullable: false),
@@ -41,7 +40,7 @@ namespace Payments.Infrastructure.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PaymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Amount = table.Column<decimal>(type: "MONEY", nullable: false),
-                    ExternalReference = table.Column<string>(type: "VARCHAR(150)", maxLength: 150, nullable: false),
+                    ExternalReference = table.Column<string>(type: "VARCHAR(150)", maxLength: 150, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),

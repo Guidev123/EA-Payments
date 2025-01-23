@@ -123,7 +123,6 @@ namespace Payments.Infrastructure.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ExternalReference")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("VARCHAR");
 
@@ -146,24 +145,6 @@ namespace Payments.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Payments.Domain.Entities.Payment", b =>
                 {
-                    b.OwnsOne("Payments.Domain.ValueObjects.Document", "Document", b1 =>
-                        {
-                            b1.Property<Guid>("PaymentId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Number")
-                                .IsRequired()
-                                .HasColumnType("VARCHAR(11)")
-                                .HasColumnName("Document");
-
-                            b1.HasKey("PaymentId");
-
-                            b1.ToTable("Payments");
-
-                            b1.WithOwner()
-                                .HasForeignKey("PaymentId");
-                        });
-
                     b.OwnsOne("Payments.Domain.ValueObjects.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("PaymentId")
@@ -181,9 +162,6 @@ namespace Payments.Infrastructure.Persistence.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("PaymentId");
                         });
-
-                    b.Navigation("Document")
-                        .IsRequired();
 
                     b.Navigation("Email")
                         .IsRequired();

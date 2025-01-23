@@ -8,7 +8,7 @@ public sealed class CreateSessionEndpoint : IEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
                 => app.MapPost("/", HandleAsync)
-                    .Produces<Response<string?>>();
+                    .Produces<Response<string?>>().RequireAuthorization();
 
     private static async Task<IResult> HandleAsync(IMediator mediator,
                                                    CreateSessionCommand command)

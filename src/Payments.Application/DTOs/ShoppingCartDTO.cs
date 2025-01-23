@@ -1,3 +1,9 @@
 ﻿namespace Payments.Application.DTOs;
 
-public record ShoppingCartDTO(string Name, string Description, decimal Price);
+public class ShoppingCartDTO
+{
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public decimal Price { get; set; }
+    public Guid TransactionId { get; set; }
+}

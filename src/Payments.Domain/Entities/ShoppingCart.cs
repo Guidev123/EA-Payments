@@ -15,6 +15,6 @@ public class ShoppingCart : Entity
     public string Name { get; private set; } = string.Empty;
     public string Description { get; private set; } = string.Empty;
     public decimal Price { get; private set; }
-    public Transaction Transaction { get; private set; } = null!;
+    public Transaction? Transaction { get; private set; } = null!;
     protected ShoppingCart() { }
 }

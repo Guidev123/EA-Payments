@@ -37,8 +37,8 @@ public sealed class StripeService(IOptions<StripeSettings> stripeSettings) : ISt
                                 Currency = "BRL",
                                 ProductData = new SessionLineItemPriceDataProductDataOptions
                                 {
-                                    Name = command.ShoppingCart.Name,
-                                    Description = command.ShoppingCart.Description
+                                    Name = command.Transaction.ShoppingCart.Name,
+                                    Description = command.Transaction.ShoppingCart.Description
                                 },
                                 UnitAmount = (int)Math.Round(command.Total * 100, 2),
                             },

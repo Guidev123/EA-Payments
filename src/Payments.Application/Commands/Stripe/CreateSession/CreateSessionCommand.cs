@@ -8,14 +8,13 @@ namespace Payments.Application.Commands.Stripe.CreateSession;
 public class CreateSessionCommand : IRequest<Response<CreateSessionResponse>>
 {
     public CreateSessionCommand(string email, string orderCode,
-                                decimal total, EPaymentGateway gateway,
-                                 ShoppingCartDTO shoppingCart)
+                                decimal total, EPaymentGateway gateway, TransactionDTO transaction)
     {
         Email = email;
         OrderCode = orderCode;
         Total = total;
         Gateway = gateway;
-        ShoppingCart = shoppingCart;
+        Transaction = transaction;
     }
 
     public Guid? CustomerId { get; private set; }
@@ -23,6 +22,6 @@ public class CreateSessionCommand : IRequest<Response<CreateSessionResponse>>
     public string OrderCode { get; private set; } = string.Empty;
     public decimal Total { get; private set; }
     public EPaymentGateway Gateway { get; private set; }
-    public ShoppingCartDTO ShoppingCart { get; private set; } = null!;
+    public TransactionDTO Transaction { get; private set; } = null!;
     public void SetCustomerId(Guid customerId) => CustomerId = customerId;
 }

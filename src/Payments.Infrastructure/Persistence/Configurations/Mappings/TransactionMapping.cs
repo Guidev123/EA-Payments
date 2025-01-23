@@ -19,7 +19,7 @@ public sealed class TransactionMapping : IEntityTypeConfiguration<Transaction>
         builder.Property(x => x.PaymentId).IsRequired();
         builder.Property(x => x.Amount).IsRequired().HasColumnType("MONEY");
         builder.Property(x => x.ExternalReference)
-            .IsRequired().HasColumnType("VARCHAR").HasMaxLength(150);
+            .IsRequired(false).HasColumnType("VARCHAR").HasMaxLength(150);
 
         builder.HasOne(x => x.ShoppingCart).WithOne(x => x.Transaction)
             .HasForeignKey<ShoppingCart>(x => x.TransactionId);
