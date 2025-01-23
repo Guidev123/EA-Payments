@@ -8,7 +8,7 @@ public sealed class PaymentDbContext(DbContextOptions<PaymentDbContext> options)
 {
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
-    public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+    public DbSet<Product> Products { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

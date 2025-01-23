@@ -6,6 +6,5 @@ public static class PaymentMappers
 {
     public static Payment MapToEntity(this CreatePaymentCommand command) =>
         new(command.CustomerId, command.Email, command.OrderCode,
-            command.Total, command.PaymentType, command.Gateway,
-            command.Transaction.MapToEntity());
+            command.Total, command.PaymentType, command.Gateway);
 }

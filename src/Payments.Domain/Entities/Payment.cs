@@ -8,7 +8,7 @@ public class Payment : Entity, IAggregateRoot
 {
     public Payment(Guid customerId, string email,
                    string orderCode, decimal total, EPaymentType paymentType,
-                   EPaymentGateway paymentGateway, Transaction transaction)
+                   EPaymentGateway paymentGateway)
     {
         CustomerId = customerId;
         Email = new Email(email);
@@ -17,7 +17,6 @@ public class Payment : Entity, IAggregateRoot
         Type = paymentType;
         Gateway = paymentGateway;
         Status = EPaymentStatus.WaitingPayment;
-        Transaction = transaction;
     }
     public Guid CustomerId { get; private set; }
     public Email Email { get; private set; } = null!;
@@ -27,5 +26,6 @@ public class Payment : Entity, IAggregateRoot
     public EPaymentGateway Gateway { get; private set; }
     public EPaymentStatus Status { get; private set; }
     public Transaction Transaction { get; private set; } = null!;
+    public void SetTransaction(Transaction transaction) => Transaction = transaction;
     protected Payment() { }
 }

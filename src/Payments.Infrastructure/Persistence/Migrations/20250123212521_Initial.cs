@@ -58,14 +58,14 @@ namespace Payments.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShoppingCarts",
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TransactionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "VARCHAR(255)", maxLength: 255, nullable: false),
+                    Name = table.Column<string>(type: "VARCHAR(150)", maxLength: 150, nullable: false),
+                    Description = table.Column<string>(type: "VARCHAR(150)", maxLength: 150, nullable: false),
                     Price = table.Column<decimal>(type: "MONEY", nullable: false),
+                    TransactionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -73,9 +73,9 @@ namespace Payments.Infrastructure.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShoppingCarts", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ShoppingCarts_Transactions_TransactionId",
+                        name: "FK_Products_Transactions_TransactionId",
                         column: x => x.TransactionId,
                         principalTable: "Transactions",
                         principalColumn: "Id",
@@ -83,10 +83,9 @@ namespace Payments.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShoppingCarts_TransactionId",
-                table: "ShoppingCarts",
-                column: "TransactionId",
-                unique: true);
+                name: "IX_Products_TransactionId",
+                table: "Products",
+                column: "TransactionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_PaymentId",
@@ -99,7 +98,7 @@ namespace Payments.Infrastructure.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ShoppingCarts");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Transactions");

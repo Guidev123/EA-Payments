@@ -1,9 +1,6 @@
 ﻿namespace Payments.Application.DTOs;
 
-public class TransactionDTO
+public record TransactionDTO(decimal Amount)
 {
-    public Guid PaymentId { get; set; }
-    public decimal Amount { get; set; }
-    public string? ExternalReference { get; set; } = string.Empty;
-    public ShoppingCartDTO ShoppingCart { get; set; } = null!;
+    public List<ProductDTO> Products { get; set; } = [];
 }

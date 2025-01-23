@@ -24,27 +24,24 @@ public sealed class StripeService(IOptions<StripeSettings> stripeSettings) : ISt
             {
                 Metadata = new Dictionary<string, string>
                 {
-                            { "order", command.OrderCode }
-                        }
+                    { "order", command.OrderCode }
+                }
             },
             PaymentMethodTypes = [_stripeSettings.PaymentMethodTypes],
-            LineItems =
-            [
-                new SessionLineItemOptions
-                        {
-                            PriceData = new SessionLineItemPriceDataOptions
-                            {
-                                Currency = "BRL",
-                                ProductData = new SessionLineItemPriceDataProductDataOptions
-                                {
-                                    Name = command.Transaction.ShoppingCart.Name,
-                                    Description = command.Transaction.ShoppingCart.Description
-                                },
-                                UnitAmount = (int)Math.Round(command.Total * 100, 2),
-                            },
-                            Quantity = 1
-                        }
-            ],
+            LineItems = command.Transaction.Products.Select(product => new SessionLineItemOptions
+            {
+                PriceData = new SessionLineItemPriceDataOptions
+                {
+                    Currency = "BRL",
+                    ProductData = new SessionLineItemPriceDataProductDataOptions
+                    {
+                        Name = product.Name,
+                        Description = product.Description
+                    },
+                    UnitAmount = (int)Math.Round(product.Price * 100, 2),
+                },
+                Quantity = 1
+            }).ToList(),
             Mode = _stripeSettings.StripeMode,
             SuccessUrl = $"{_stripeSettings.FrontendUrl}/orders/{command.OrderCode}/confirm",
             CancelUrl = $"{_stripeSettings.FrontendUrl}/orders/{command.OrderCode}/cancel",

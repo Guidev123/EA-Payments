@@ -21,8 +21,9 @@ public sealed class TransactionMapping : IEntityTypeConfiguration<Transaction>
         builder.Property(x => x.ExternalReference)
             .IsRequired(false).HasColumnType("VARCHAR").HasMaxLength(150);
 
-        builder.HasOne(x => x.ShoppingCart).WithOne(x => x.Transaction)
-            .HasForeignKey<ShoppingCart>(x => x.TransactionId);
+        builder.HasMany(x => x.Products)
+            .WithOne(x => x.Transaction)
+            .HasForeignKey(x => x.TransactionId);
 
         builder.HasQueryFilter(x => !x.IsDeleted);
     }

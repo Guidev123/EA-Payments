@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Payments.Application.Factories;
 using Payments.Application.Mappers;
 using Payments.Application.Responses;
 using Payments.Application.Services;
@@ -26,7 +27,7 @@ public sealed class CreatePaymentHandler(IStripeService stripeService,
         var session = await _stripeService.CreateSessionAsync(request);
         if (string.IsNullOrEmpty(session)) return new(null, 400);
 
-        await _paymentRepository.CreateAsync(request.MapToEntity());
+        await _paymentRepository.CreateAsync(PaymentFactory.CreatePayment(request));
 
         return await _unitOfWork.CompleteAsync() > 0
             ? new(new(session), 200)

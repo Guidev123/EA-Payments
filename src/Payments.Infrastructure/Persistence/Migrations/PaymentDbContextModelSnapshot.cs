@@ -65,7 +65,7 @@ namespace Payments.Infrastructure.Persistence.Migrations
                     b.ToTable("Payments", (string)null);
                 });
 
-            modelBuilder.Entity("Payments.Domain.Entities.ShoppingCart", b =>
+            modelBuilder.Entity("Payments.Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,7 +79,7 @@ namespace Payments.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(255)
+                        .HasMaxLength(150)
                         .HasColumnType("VARCHAR");
 
                     b.Property<bool>("IsDeleted")
@@ -87,7 +87,7 @@ namespace Payments.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
+                        .HasMaxLength(150)
                         .HasColumnType("VARCHAR");
 
                     b.Property<decimal>("Price")
@@ -101,10 +101,9 @@ namespace Payments.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TransactionId")
-                        .IsUnique();
+                    b.HasIndex("TransactionId");
 
-                    b.ToTable("ShoppingCarts", (string)null);
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Payments.Domain.Entities.Transaction", b =>
@@ -167,11 +166,11 @@ namespace Payments.Infrastructure.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Payments.Domain.Entities.ShoppingCart", b =>
+            modelBuilder.Entity("Payments.Domain.Entities.Product", b =>
                 {
                     b.HasOne("Payments.Domain.Entities.Transaction", "Transaction")
-                        .WithOne("ShoppingCart")
-                        .HasForeignKey("Payments.Domain.Entities.ShoppingCart", "TransactionId")
+                        .WithMany("Products")
+                        .HasForeignKey("TransactionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -197,8 +196,7 @@ namespace Payments.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Payments.Domain.Entities.Transaction", b =>
                 {
-                    b.Navigation("ShoppingCart")
-                        .IsRequired();
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
