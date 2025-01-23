@@ -1,40 +1,49 @@
-﻿//using MediatR;
-//using Microsoft.AspNetCore.Http;
-//using Payments.Application.Responses;
-//using Stripe;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
+using Payments.Application.Events.PaymentConfirmed;
+using Payments.Application.Responses;
+using Payments.Domain.Enums;
+using Stripe;
 
-//namespace Payments.Application.Commands.Stripe.ConfirmPayment;
+namespace Payments.Application.Commands.Stripe.ConfirmPayment;
 
-//public sealed class ConfirmPaymentHandler(HttpContext context)
-//                  : IRequestHandler<ConfirmPaymentCommand, Response<ConfirmPaymentCommand>>
-//{
-//    public async Task<Response<ConfirmPaymentCommand>> Handle(ConfirmPaymentCommand request, CancellationToken cancellationToken)
-//    {
-//        var json = await new StreamReader(context.Request.Body).ReadToEndAsync(cancellationToken);
+public sealed class ConfirmPaymentHandler(IHttpContextAccessor httpContextAccessor, IMediator mediator)
+                  : IRequestHandler<ConfirmPaymentCommand, Response<ConfirmPaymentCommand>>
+{
+    private readonly IMediator _mediator = mediator;
+    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
-//        try
-//        {
-//            var stripeEvent = EventUtility.ConstructEvent(
-//                json,
-//                context.Request.Headers["Stripe-Signature"],
-//                request.WebhoockKey
-//            );
+    public async Task<Response<ConfirmPaymentCommand>> Handle(ConfirmPaymentCommand request, CancellationToken cancellationToken)
+    {
+        var context = _httpContextAccessor.HttpContext;
 
-//            if (stripeEvent.Type == ApplicationModule.EVENT_TYPE_STRIPE)
-//            {
+        if (context is null)
+            return new(null, 500);
 
-//            }
+        var json = await new StreamReader(context.Request.Body).ReadToEndAsync(cancellationToken);
 
-//            else
-//            {
+        try
+        {
+            var stripeEvent = EventUtility.ConstructEvent(
+                json,
+                context.Request.Headers["Stripe-Signature"],
+                request.WebhoockKey
+            );
 
-//            }
+            if (stripeEvent.Type == ApplicationModule.EVENT_TYPE_STRIPE)
+            {
+                await _mediator.Publish(new PaymentConfirmedEvent(EPaymentStatus.Paid), cancellationToken);
+            }
+            else
+            {
+                return new(null, 400);
+            }
 
-//            return new(null, 204);
-//        }
-//        catch
-//        {
-//            return new(null, 500);
-//        }
-//    }
-//}
+            return new(null, 204);
+        }
+        catch
+        {
+            return new(null, 500);
+        }
+    }
+}

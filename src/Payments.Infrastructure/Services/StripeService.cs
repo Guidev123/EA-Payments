@@ -52,6 +52,7 @@ public sealed class StripeService(IOptions<StripeSettings> stripeSettings) : ISt
 
         var service = new SessionService(client);
         var session = await service.CreateAsync(options);
+
         return session.Id;
     }
 

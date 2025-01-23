@@ -1,9 +1,7 @@
-﻿
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Options;
 using Payments.Application.Commands.Stripe.ConfirmPayment;
 using Payments.Infrastructure.Models;
-using Stripe;
 
 namespace Payments.API.Endpoints.Stripe;
 

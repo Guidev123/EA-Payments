@@ -12,7 +12,7 @@ public static class Configuration
     {
         builder.AddCustomerMiddlewares();
         builder.AddSettingsModels();
-        builder.Services.AddApplication();
+        builder.Services.AddApplication(builder.Configuration);
         builder.Services.AddInfra(builder.Configuration);
     }
 
