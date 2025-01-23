@@ -4,11 +4,10 @@ namespace Payments.Domain.Entities;
 
 public class Transaction : Entity
 {
-    public Transaction(Guid paymentId, decimal amount, string externalReference, ShoppingCart shoppingCart)
+    public Transaction(Guid paymentId, decimal amount, ShoppingCart shoppingCart)
     {
         PaymentId = paymentId;
         Amount = amount;
-        ExternalReference = externalReference;
         ShoppingCart = shoppingCart;
     }
 

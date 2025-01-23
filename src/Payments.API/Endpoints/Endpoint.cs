@@ -11,7 +11,7 @@ public static class Endpoint
         endpoints.MapGroup("api/v1/stripe")
             .WithTags("Stripe")
             .MapEndpoint<WebhookConfirmPaymentEndpoint>()
-            .MapEndpoint<CreateSessionEndpoint>()
+            .MapEndpoint<CreatePaymentEndpoint>()
             .MapEndpoint<GetTransactionsByOrderCodeEndpoint>();
     }
 

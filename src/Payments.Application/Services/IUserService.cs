@@ -2,6 +2,7 @@
 
 public interface IUserService
 {
-    Guid? GetUserIdAsync();
+    Guid? GetUserId();
+    string? GetUserEmail();
     string GetToken();
 }

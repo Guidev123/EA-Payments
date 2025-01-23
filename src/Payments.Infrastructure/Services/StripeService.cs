@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using Payments.Application.Commands.Stripe.CreateSession;
+using Payments.Application.Commands.Stripe.Create;
 using Payments.Application.DTOs;
 using Payments.Application.Services;
 using Payments.Infrastructure.Models;
@@ -11,7 +11,7 @@ namespace Payments.Infrastructure.Services;
 public sealed class StripeService(IOptions<StripeSettings> stripeSettings) : IStripeService
 {
     private readonly StripeSettings _stripeSettings = stripeSettings.Value;
-    public async Task<string?> CreateSessionAsync(CreateSessionCommand command)
+    public async Task<string?> CreateSessionAsync(CreatePaymentCommand command)
     {
         var client = new StripeClient(_stripeSettings.ApiKey);
 
@@ -52,7 +52,6 @@ public sealed class StripeService(IOptions<StripeSettings> stripeSettings) : ISt
 
         var service = new SessionService(client);
         var session = await service.CreateAsync(options);
-
         return session.Id;
     }
 

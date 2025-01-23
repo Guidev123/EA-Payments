@@ -19,7 +19,7 @@ public sealed class UserService(IHttpContextAccessor httpContextAccessor) : IUse
         return string.Empty;
     }
 
-    public Guid? GetUserIdAsync()
+    public Guid? GetUserId()
     {
         var token = GetToken();
         if (string.IsNullOrEmpty(token)) return null;
@@ -30,5 +30,15 @@ public sealed class UserService(IHttpContextAccessor httpContextAccessor) : IUse
         if (Guid.TryParse(userIdClaim, out var userId)) return userId;
 
         return null;
+    }
+
+    public string? GetUserEmail()
+    {
+        var token = GetToken();
+        if (string.IsNullOrEmpty(token)) return null;
+
+        var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
+
+        return jwtToken.Claims.FirstOrDefault(c => c.Type == "email")?.Value;
     }
 }
