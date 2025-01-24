@@ -27,5 +27,7 @@ public class Payment : Entity, IAggregateRoot
     public EPaymentStatus Status { get; private set; }
     public Transaction Transaction { get; private set; } = null!;
     public void SetTransaction(Transaction transaction) => Transaction = transaction;
+    public void SetAsPaid() => Status = EPaymentStatus.Paid;
+
     protected Payment() { }
 }

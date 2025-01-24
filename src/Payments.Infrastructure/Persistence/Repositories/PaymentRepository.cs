@@ -31,4 +31,7 @@ public sealed class PaymentRepository(PaymentDbContext context) : IPaymentReposi
         _context.Dispose();
         GC.SuppressFinalize(this);
     }
+
+    public async Task<Payment?> GetByOrderCodeAsync(string orderCode) =>
+        await _context.Payments.AsNoTrackingWithIdentityResolution().Include(x => x.Transaction).FirstOrDefaultAsync(x => x.OrderCode == orderCode);
 }

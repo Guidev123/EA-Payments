@@ -15,7 +15,7 @@ public class Transaction : Entity
     public string? ExternalReference { get; private set; } = string.Empty;
     public List<Product> Products { get; private set; } = null!;
     public Payment? Payment { get; private set; } = null!;
-
+    public void SetExternalReference(string externalReference) => ExternalReference = externalReference;
     public void SetProducts(List<Product> products) => Products = products;
     protected Transaction() { }
 }

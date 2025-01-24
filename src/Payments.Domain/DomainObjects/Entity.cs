@@ -23,6 +23,7 @@ public abstract class Entity
         DeletedAt = DateTime.Now;
         IsDeleted = true;
     }
+
     private List<IDomainEvent> _events = [];
 
     public IReadOnlyCollection<IDomainEvent> Events => _events.AsReadOnly();

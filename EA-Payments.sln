@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureTests", "tests\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLib.MessageBus", "..\SharedLib\src\SharedLib.MessageBus\SharedLib.MessageBus.csproj", "{562AA628-BBB2-4C11-824A-A75600BDC6E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EA.IntegrationEvents", "..\EA-IntegrationEvents\EA.IntegrationEvents\EA.IntegrationEvents.csproj", "{93E92684-5630-4F36-BE47-F654E32085AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{562AA628-BBB2-4C11-824A-A75600BDC6E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{562AA628-BBB2-4C11-824A-A75600BDC6E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{562AA628-BBB2-4C11-824A-A75600BDC6E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93E92684-5630-4F36-BE47-F654E32085AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93E92684-5630-4F36-BE47-F654E32085AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93E92684-5630-4F36-BE47-F654E32085AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93E92684-5630-4F36-BE47-F654E32085AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,5 +80,6 @@ Global
 		{9540A1B1-A5E1-417D-AD64-1EB14221421E} = {9CE0C902-8435-492E-833C-7C8456A4D914}
 		{A5268DC9-8FFB-409F-AC9A-3C247AE6EB8A} = {9540A1B1-A5E1-417D-AD64-1EB14221421E}
 		{562AA628-BBB2-4C11-824A-A75600BDC6E5} = {A7C51929-B8C2-476B-82C7-D0545741C81D}
+		{93E92684-5630-4F36-BE47-F654E32085AB} = {A7C51929-B8C2-476B-82C7-D0545741C81D}
 	EndGlobalSection
 EndGlobal
