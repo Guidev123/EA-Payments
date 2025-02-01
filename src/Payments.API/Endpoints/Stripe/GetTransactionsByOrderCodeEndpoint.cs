@@ -8,7 +8,7 @@ public class GetTransactionsByOrderCodeEndpoint : IEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
         => app.MapGet("/{number}", HandleAsync)
-            .Produces<Response<dynamic>>()/*.RequireAuthorization()*/;
+            .Produces<Response<dynamic>>().RequireAuthorization();
 
     private static async Task<IResult> HandleAsync(IMediator mediator,
                                                    string number)
