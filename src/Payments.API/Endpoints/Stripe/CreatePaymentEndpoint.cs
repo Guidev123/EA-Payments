@@ -8,7 +8,7 @@ public sealed class CreatePaymentEndpoint : IEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
                 => app.MapPost("/", HandleAsync)
-                    .Produces<Response<string?>>().RequireAuthorization();
+                    .Produces<Response<CreatePaymentResponse?>>().RequireAuthorization();
 
     private static async Task<IResult> HandleAsync(IMediator mediator,
                                                    CreatePaymentCommand command)
